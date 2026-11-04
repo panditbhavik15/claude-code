@@ -1,0 +1,4 @@
+{
+  "description": "Tells every subagent whether the directory it actually runs in is inside a git repository, by one agent.spawn hook that resolves the spawn's effective directory (the call's own cwd, else the session's), asks git rev-parse --show-toplevel there, and appends the verified answer to the subagent's prompt, so a stale session-start 'Is a git repository' banner field no longer decides whether an agent runs git checks",
+  "modules": ["./register.ts"]
+}

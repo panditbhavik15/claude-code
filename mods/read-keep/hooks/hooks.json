@@ -1,0 +1,4 @@
+{
+  "description": "Carries a session's read state across compaction: a tool.call hook on Read ledgers the files it opened, a session.compact hook (except a precompute, which resets nothing) marks that the engine's per-file read state behind them is gone, a prompt.context hook says so once on the next conversation start naming the files at risk, and an Edit, Write or NotebookEdit refused with \"File has not been read yet\" or \"only the start of this file\" on a ledger file keeps its refusal but gains a context note telling the model it did read that file and must Read it again in full before repeating the edit",
+  "modules": ["./register.ts"]
+}

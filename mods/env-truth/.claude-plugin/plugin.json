@@ -1,0 +1,8 @@
+{
+  "name": "env-truth",
+  "version": "0.1.0",
+  "description": "Verified git status for the directory a subagent actually runs in. An agent.spawn hook resolves the spawn's effective working directory (the call's own cwd, else the session's), runs git rev-parse --show-toplevel there, and appends the answer to the subagent's prompt, telling it to trust that over the session banner's \"Is a git repository\" field. Works around anthropics/claude-code#107019 (Bug 1): the banner's flag can be the session's start directory while its working-directory line names another, so a subagent that believes the false skips git checks it should have run. This mod changes no banner field; the banner itself is built inside the compiled CLI and is not patched here.",
+  "author": {
+    "name": "Bhavik Pandit"
+  }
+}

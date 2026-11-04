@@ -1,0 +1,8 @@
+{
+  "name": "read-keep",
+  "version": "0.1.0",
+  "description": "Stops compaction from throwing away the session's record of which files it read. Works around anthropics/claude-code#107019 (Bug 2): the engine gates an edit on a per-file read state (Edit validation reads readFileState.get(path) and returns \"File has not been read yet. Read it first before writing to it.\" with errorCode 9; a Read that only covered part of the file is refused separately, by holdsOnlyStartOf / isPartialView with errorCode 19), and the read results that created that state leave the transcript at a compaction, so edits on a file already read and edited earlier in the session fail right after an auto-compaction. The build ships an internal seed_read_state request subtype ({path, mtime}) described as being for when \"a prior Read was removed from context so Edit validation would fail\" — the failure class is known, but that subtype is driven by the host, not by a plugin or the model. This mod tracks the reads itself, names the files at risk once after each compaction, and turns either refusal into a self-correcting instruction instead of a dead end. It does not restore the engine's read state.",
+  "author": {
+    "name": "Bhavik Pandit"
+  }
+}

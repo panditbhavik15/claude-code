@@ -1,0 +1,4 @@
+{
+  "description": "Delivers a message addressed to a stopped subagent: an agent.spawn hook records what each subagent was started with, keyed by its name and the agentId core returns, and a tool.call hook on SendMessage asks core first, then — only when core reports the target as stopped by the user — restarts the recorded task as a new named agent whose prompt carries the original task and the pending message, delivers that message to it with a second SendMessage, and answers with core's own delivery record plus a context note naming the new address; an unknown address, a refused restart, an undeliverable message, or a target that is already a restart gets core's refusal back unchanged with a note saying why nothing was repaired",
+  "modules": ["./register.ts"]
+}
