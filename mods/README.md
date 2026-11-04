@@ -12,7 +12,15 @@ source, published as it is built into the binary.
 | [`telemetry`](telemetry) | Hooks `$.telemetry`'s two events (`log`, `mark`), adding the noun in the `engine.create` fold where the engine has none, so a built-in plugin can record an event as a first-party analytics row, sent in batches; refuses installed plugins; sends nothing wherever Claude Code's analytics are off. | Built in |
 | [`agents-md`](agents-md) | `AGENTS.md` as project instructions, by one option: loaded where the project has no `CLAUDE.md` of its own (`claude-md-or-agents-md`, the default) or beside it (`claude-md-and-agents-md`), placed and framed exactly as the engine places `CLAUDE.md`, nested ones on a `Read`; or the project's and the person's instruction files dropped and the organization's kept (`managed-only`); or `CLAUDE.md` alone, as the engine reads it (`claude-md`). | Built in |
 
-Each folder is a complete plugin: `.claude-plugin/plugin.json`, a
+> **Not one of the four above:** [`env-truth`](env-truth) sits in this folder so
+> it typechecks against the same `types/` and runs under the same
+> `claude plugin test`, but it is **not built into the binary**. It is a
+> workaround for #107019 Bug 1, written against the published hook API: it
+> verifies the git status of the directory a subagent actually runs in and hands
+> that to the subagent at spawn. It changes no banner field — the banner is
+> rendered inside the compiled CLI, whose source is not in this repository.
+
+Each folder above is a complete plugin: `.claude-plugin/plugin.json`, a
 `hooks/hooks.json` naming the module, and TypeScript under `hooks/` typed
 against the declarations `/plugin-types` writes (`import type … from
 'claude-code'`), kept here in `types/`. To read one running from source:
