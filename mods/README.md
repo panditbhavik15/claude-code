@@ -12,13 +12,16 @@ source, published as it is built into the binary.
 | [`telemetry`](telemetry) | Hooks `$.telemetry`'s two events (`log`, `mark`), adding the noun in the `engine.create` fold where the engine has none, so a built-in plugin can record an event as a first-party analytics row, sent in batches; refuses installed plugins; sends nothing wherever Claude Code's analytics are off. | Built in |
 | [`agents-md`](agents-md) | `AGENTS.md` as project instructions, by one option: loaded where the project has no `CLAUDE.md` of its own (`claude-md-or-agents-md`, the default) or beside it (`claude-md-and-agents-md`), placed and framed exactly as the engine places `CLAUDE.md`, nested ones on a `Read`; or the project's and the person's instruction files dropped and the organization's kept (`managed-only`); or `CLAUDE.md` alone, as the engine reads it (`claude-md`). | Built in |
 
-> **Not one of the four above:** [`env-truth`](env-truth) sits in this folder so
-> it typechecks against the same `types/` and runs under the same
-> `claude plugin test`, but it is **not built into the binary**. It is a
-> workaround for #107019 Bug 1, written against the published hook API: it
-> verifies the git status of the directory a subagent actually runs in and hands
-> that to the subagent at spawn. It changes no banner field — the banner is
-> rendered inside the compiled CLI, whose source is not in this repository.
+> **Not any of the four above:** [`env-truth`](env-truth) and
+> [`read-keep`](read-keep) sit in this folder so they typecheck against the same
+> `types/` and run under the same `claude plugin test`, but they are **not built
+> into the binary**. They are workarounds for #107019, written against the
+> published hook API: `env-truth` verifies the git status of the directory a
+> subagent actually runs in and hands that to the subagent at spawn (Bug 1), and
+> `read-keep` carries a session's ledger of read files across a compaction and
+> answers the resulting edit refusal with what to do next (Bug 2). Neither
+> reaches inside the compiled CLI to change what it does there: the banner is
+> rendered inside it, and `readFileState` is stored inside it.
 
 Each folder above is a complete plugin: `.claude-plugin/plugin.json`, a
 `hooks/hooks.json` naming the module, and TypeScript under `hooks/` typed
