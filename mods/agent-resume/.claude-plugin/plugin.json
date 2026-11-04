@@ -1,0 +1,8 @@
+{
+  "name": "agent-resume",
+  "version": "0.1.0",
+  "description": "Delivers a message addressed to a stopped subagent by restarting that task, instead of letting it be refused. Works around anthropics/claude-code#107019 (Bug 3): SendMessage documents that it continues a spawned agent with its context intact, but when the user has stopped that agent the shipped 2.1.317 build refuses with \"Agent <id> was stopped by the user and won't be resumed\", and the message goes nowhere. Core's own resume path is tried first, so this mod only acts on core's refusal: an agent.spawn hook records what each subagent was started with, keyed by both its name and its agentId, and a tool.call hook on SendMessage restarts that recorded task under a new address with the pending message in its prompt, delivers the message to it through SendMessage itself, and tells the model the replacement is a NEW agent that carries none of the stopped one's findings. It does not resume the stopped agent or restore its transcript; nothing a plugin can do reaches the compiled engine's task table.",
+  "author": {
+    "name": "Bhavik Pandit"
+  }
+}
